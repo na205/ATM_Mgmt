@@ -1,9 +1,9 @@
 public class ATM {
-	public static int x=6;
-	public static int y=26;
-	public static int z=40;
+	public static int x=7;
+	public static int y=0;
+	public static int z=10;
 	public static void main(String[] args) {
-		int amount=13500;
+		int amount=3600;	
 //		userAmount1(amount);
 		userAmount2(amount);
 	}
@@ -95,11 +95,11 @@ public class ATM {
 							pri=amount;
 						} else {
 							if(y>0) {
-								y--; j++; 
+								y--; j++;
 								x+=q/100; i-=(q/100);
 								pri=amount;
 							} else {
-								z--; k++; 
+								z--; k++;
 								x+=(500+q)/100; i-=(500+q)/100;
 								pri=amount;
 							}
@@ -131,19 +131,22 @@ public class ATM {
 							} else if(y > 0 && x >= q/100) {
 								x-=(q/100); y--; j++; i+=(q/100);
 								pri=amount;
+							} else if(x >= (p/100)) {
+								x-=(p/100); i+=(p/100);
+								pri=amount;
 							}
 						}
 					} else if(amount-pri >= 1000){
-//						System.out.println("Here4");
-						if(z>0) {
-							pri+=1000;
-							z--; k++;
+//						System.out.println("Here3");
+						if(x>0) {
+							pri+=100;
+							x--; i++;
 						} else if(y>0) {
 							pri+=500;
 							y--; j++;
-						} else {
-							pri+=100;
-							x--; i++;
+						} else if(z>0) {
+							pri+=1000;
+							z--; k++;
 						}
 					}
 				}
