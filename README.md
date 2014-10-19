@@ -1,2 +1,1 @@
-ATM_Mgmt
-========
+This program takes requested amount from user and fullfills the user request by adding all kinds of denominations such that user recieves less number of denominations and at the same time user recieves minimum valued denominations(ex 100, 500) so that user can't find difficulty during exchange with others.
