@@ -49,6 +49,7 @@ public class ATM {
 		}
 	}
 	public static void userAmount2(int amount) {
+		int i=0,j=0,k=0,pri=0,yf=0,zf=0;
 		if(amount%100 != 0) {
 			System.out.println("Wrong amount entered!!");
 			return;
@@ -59,7 +60,6 @@ public class ATM {
 			System.out.println("Can't provide requested amount");
 			return;
 		} else {
-			int i=0,j=0,k=0,pri=0,yf=0,zf=0;
 			while(true) {
 				double px=(x*100)/(amount-pri), py=(y*500)/(amount-pri), pz=(z*1000)/(amount-pri);
 				int flag=pri;
@@ -85,6 +85,7 @@ public class ATM {
 					pri+=100;
 					x--; i++;
 				}
+				System.out.println(pri);
 				if(flag==pri) {
 					if(amount-pri > 0 && amount-pri < 500) {
 //						System.out.println("Here1");
@@ -94,11 +95,11 @@ public class ATM {
 							x-=p/100; i+=p/100;
 							pri=amount;
 						} else {
-							if(y>0) {
+							if(y>0 && i>=(q/100)) {
 								y--; j++;
 								x+=q/100; i-=(q/100);
 								pri=amount;
-							} else {
+							} else if(z>0 && i>=(500+q)/100) {
 								z--; k++;
 								x+=(500+q)/100; i-=(500+q)/100;
 								pri=amount;
@@ -110,6 +111,7 @@ public class ATM {
 						int q=(amount-pri)-500;
 						int r=1000-(amount-pri);
 						if(p == 500) {
+//							System.out.println("Here21");
 							if(y > 0) {
 								j++; y--;
 								pri=amount;
@@ -117,23 +119,34 @@ public class ATM {
 								j--; y++;
 								z--; k++;
 								pri=amount;
-							} else {
+							} else if(i>=(p/100) && z>0) {
 								z--; k++;
 								i-=(p/100); x+=(p/100);
 								pri=amount;
+							} else if(x >= (p/100)) {
+								x-=(p/100); i+=(p/100);
+								pri=amount;
 							}
 						} else {
-							if(j > 0 && i >= r/100) {
-								y++; j--;
-								z--; k++;
-								i-=(r/100); x+=(r/100);
-								pri=amount;
-							} else if(y > 0 && x >= q/100) {
+//							System.out.println("Here22");
+							if(y>0 && x >= q/100) {
 								x-=(q/100); y--; j++; i+=(q/100);
 								pri=amount;
 							} else if(x >= (p/100)) {
 								x-=(p/100); i+=(p/100);
 								pri=amount;
+							} else if(j>0 && i>=(q/100) && z>0) {
+								j--; y++;
+								i+=(q/100); x-=(q/100);
+								k++; z--;
+								pri=amount;
+							} else if(i >= r/100) {
+								z--; k++;
+								i-=(r/100); x+=(r/100);
+								pri=amount;
+							} else if(y>0) {
+								y--; j++;
+								pri+=500;
 							}
 						}
 					} else if(amount-pri >= 1000){
@@ -148,6 +161,10 @@ public class ATM {
 							pri+=1000;
 							z--; k++;
 						}
+					}
+					if(flag==pri) {
+						System.out.println("Can't provide requested amount");
+						return;
 					}
 				}
 				if(pri == amount) {
